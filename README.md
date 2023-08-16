@@ -15,4 +15,17 @@ The third step is to install RAS/NAT to allow the Windows 10 client (second VM) 
 
 Once RAS/NAT is set up, we will set up a DHCP server on the DC with the scope information pictured at the top. To do this, we go to add roles & features > DHCP Server > install. We can now go to tools > DHCP in order to set up the scope to give IP addresses in the range with the correct subnet mask. In DHCP settings we will use the DC IP address as the default gateway. 
 
-This is my favorite part where we will use a PowerShell script to add 1000 users to Active Directory. To make it easier, we used a random name generator script to add the 1000 names to a .txt file. This way we can easily call on that text file in the PowerShell script. 
+This is my favorite part where we will use a PowerShell script to add 1000 users to Active Directory. To make it easier, we used a random name generator script to add the 1000 names to a .txt file. This way we can easily call on that text file in the PowerShell script. The script and text file can be accessed here:(https://github.com/Dwsilky/PowerShell).
+
+Important: you must enter the command below before running the powershell script, or it will not work:
+
+Set-ExecutionPolicy Unrestricted
+
+Now that the script has run and there are 1000 users in Active Directory, you can mess around adding people to different Organizational Units and assigning different permissions, etc. 
+
+The final step is to create the second virtual machine running Windows 10. I named it client1 for simplicity. Once the second VM is up and running, I go to the command prompt and type: ipconfig, then: ping www.google.com.
+This is to make sure the DNS server is working and the DC is properly NATTING and forwarding traffic to the internet, and then returning the ping back to the client machine.
+
+## Conclusion
+
+In conclusion, PowerShell is a powerful tool to do many tasks and in this case it saved me a ton of legwork in creating users in my Active Directory to mess around with and assign different permissions. There is a lot of flexibility with this lab in managing a server and I plan to continue to redo the lab many times to find new ways of simplifying tasks.
